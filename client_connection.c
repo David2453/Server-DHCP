@@ -32,8 +32,8 @@ int setup_client_socket()
     memset(&client_addr,0,sizeof(client_addr));
     client_addr.sin_family=AF_INET;
     client_addr.sin_port=htons(BOOTPC);
-    //client_addr.sin_addr.s_addr=inet_addr("127.0.0.1"); //adresa IP server
-    client_addr.sin_addr.s_addr=INADDR_ANY;
+    client_addr.sin_addr.s_addr=inet_addr("127.0.0.1"); //adresa IP server
+    //client_addr.sin_addr.s_addr=INADDR_ANY;
 
     if (bind(client_socket, (struct sockaddr*)&client_addr, sizeof(client_addr)) < 0) 
     {
@@ -79,15 +79,19 @@ void communicate_with_server(int client_socket)
         exit(EXIT_FAILURE);
     }
 
-    dhcp_msg *offer_msg=(dhcp_msg*)buffer;
+    //pentru primul masaj trnasmis de la tastatura
+    buffer[recv_bytes]='\0';
+    printf("Response from server: %s\n", buffer);
+
+    dhcp_message *offer_msg=(dhcp_message*)buffer;
+    struct in_addr client_ip, server_ip;
+    client_ip.s_addr = offer_msg->yiaddr;
+    server_ip.s_addr = offer_msg->siaddr;
+
     printf("Received DHCP Offer:\n");
-    printf("Your(client) IP Address: %s\n", str_ip(offer_msg->hdr.yiaddr));
-    printf("Server IP Address: %s\n", str_ip(offer_msg->hdr.siaddr));
+    printf("Your(client) IP Address: %s\n", inet_ntoa(client_ip));
+    printf("Server IP Address: %s\n",inet_ntoa(server_ip));
 
-
-//pentru primul masaj trnasmis de la tastatura
-    // buffer[recv_bytes]='\0';
-    // printf("Response from server: %s\n", buffer);
 }
 
 void get_mac_address(uint8_t *mac, const char *interface)
@@ -142,8 +146,8 @@ void send_dhcp_discover(int client_socket, struct sockaddr_in *server_addr, dhcp
     }
 
     printf("DHCP discover message sent!\n");
+   
 }
-
 
 int main()
 {
@@ -151,6 +155,8 @@ int main()
 
     uint8_t mac_address[ETHERNET_LEN];
     dhcp_message discover_message;
+
+    communicate_with_server(client_socket);
 
     get_mac_address(mac_address,"enp0s3");
 
@@ -164,7 +170,7 @@ int main()
 
     send_dhcp_discover(client_socket, &server_addr, &discover_message);
 
-    communicate_with_server(client_socket);
+    
 
     close(client_socket);
     

@@ -63,7 +63,7 @@ void handle_client(int server_socket)
 int main()
 {
     int server_socket=setup_server_socket();
-    printf("Server is open and it listen on %d port", BOOTPS);
+    printf("Server is open and it listen on %d port.\n", BOOTPS);
 
     while(1)
     {
