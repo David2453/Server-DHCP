@@ -7,6 +7,7 @@
 #include<netinet/in.h>
 
 #include "server_connection.h"
+#include "dhcp_structure.h"
 
 int setup_server_socket()
 {
@@ -40,6 +41,7 @@ void handle_client(int server_socket)
     struct sockaddr_in client_addr;
     socklen_t client_len=sizeof(client_addr);
     char buffer[BUFFER_SIZE];
+
     
     ssize_t recv_bytes=recvfrom(server_socket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
     if(recv_bytes < 0)
@@ -58,6 +60,43 @@ void handle_client(int server_socket)
         close(server_socket);
         exit(EXIT_FAILURE);
     }
+
+    dhcp_message *request=(dhcp_message*)buffer;
+    if(request->op==BOOTREQUEST)
+    {
+        if(request->xid)
+        {
+            printf("DHCP Discover received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                   request->chaddr[0], request->chaddr[1], request->chaddr[2],
+                   request->chaddr[3], request->chaddr[4], request->chaddr[5]);
+            //mesajul offer
+            dhcp_message offer;
+            memset(&offer, 0, sizeof(dhcp_message));
+            offer.op = BOOTREPLY;
+            offer.htype = request->htype;
+            offer.hlen = request->hlen; 
+            offer.xid = request->xid;
+            //exemplu adrese IP oferite clientului
+            offer.yiaddr = inet_addr("192.168.1.100");
+            offer.siaddr = inet_addr("192.168.1.1");
+             memcpy(offer.chaddr, request->chaddr, ETHERNET_LEN);
+
+            ssize_t send_bytes = sendto(server_socket, &offer, sizeof(dhcp_message), 0, 
+                                        (struct sockaddr*)&client_addr, client_len);
+            if (send_bytes < 0)
+            {
+                perror("Error: Couldn't send DHCP Offer to client!");
+                close(server_socket);
+                exit(EXIT_FAILURE);
+            }
+
+            printf("DHCP Offer sent to client: IP address %s\n", inet_ntoa(*(struct in_addr *)&offer.yiaddr));
+        }
+    }
+    else
+        printf("Unexpected DHCP message received.\n");
+    
+    
 }
 
 int main()
