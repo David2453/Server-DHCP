@@ -1,0 +1,3 @@
+1.Asigurare trasnmitere pachete DHCP
+2.Fisierul de config + Citire fisier si initializare adress pool, etc.
+3.Handle pachet DHCP
