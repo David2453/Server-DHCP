@@ -1,0 +1,14 @@
+
+------------------------Start of Server------------------------
+
+
+
+
+Scriptul a fost executat cu succes.
+Default lease time: 600 sec
+Max lease time: 7200 sec
+Subnet: 192.168.1.0, Netmask: 255.255.255.0
+Intervalul IP: 192.168.1.100 - 192.168.1.200;
+Server configuration loaded successfully
+Server is open and it listens on 67 port.
+Message received from the client: 

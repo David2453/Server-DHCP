@@ -2,6 +2,7 @@
 #define DHCP_STRUCTURE_H
 
 #include <stdint.h>
+#define BUFFER_SIZE 512
 
 enum ports {
     BOOTPS = 67,

@@ -16,11 +16,41 @@
 #include "options.h"
 
 #define DHCP_OPTION_MSG_TYPE 53
+#define DHCP_OPTIONS_MAX_LEN 276
 #define CONFIG_FILENAME "/etc/dhcp/dhcpd.conf"
 
 uint8_t get_dhcp_message_type(const uint8_t *options, size_t options_len)
 {
-    size_t i = 0;
+    // size_t i = 0;
+    // while (i < options_len) 
+
+    // {
+    //     uint8_t option_code=options[i];
+    //     if (option_code == 0xFF) 
+    //     { 
+    //         break;
+    //     }
+    //     if(i+1>=options_len)
+    //     {
+    //         break;
+    //     }
+
+    //     uint8_t option_len=options[i+1];
+    //     if(i+2+option_len>options_len)
+    //     {
+    //         break;
+    //     }
+
+    //     if (option_code == DHCP_OPTION_MSG_TYPE && option_len>=1) 
+    //     {
+    //         return options[i + 2]; //tip mesaj
+    //     }
+    //     i += 2 + option_len; //urmatoarea optiune
+    // }
+    // return 0; 
+
+
+      size_t i = 0;
     while (i < options_len) 
     {
         if (options[i] == 0xFF) 
@@ -221,8 +251,9 @@ void send_DHCP_Offer(int server_socket, const dhcp_message *request, const struc
 
 //OPTIUNI SUPLIMENTARE
 
-    // offer.options[0]=DHCP_OPTION_MSG_TYPE;
-    // offer.options[1]=2; //DHCP Offer
+    offer.options[0]=DHCP_OPTION_MSG_TYPE;
+    offer.options[1]=2; //DHCP Offer
+    offer.options[2]=0xFF;
     // offer.options[2]=IP_ADDRESS_LEASE_TIME; //lease time
     // offer.options[3]=(uint8_t)((config->max_lease_time >> 24) & 0xFF);
     // offer.options[4] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
@@ -325,6 +356,7 @@ void send_DHCP_Ack(int server_socket, const dhcp_message *request, const struct 
     ack.options[22] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
     ack.options[23] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
     ack.options[24] = (uint8_t)(config->dns[0] & 0xFF);
+    ack.options[25]=0xFF;
 
     memcpy(ack.chaddr, request->chaddr, request->hlen);
 
@@ -400,6 +432,7 @@ void handle_DHCP_Inform_Reply(int server_socket, const dhcp_message *request, co
     inform_reply.options[5] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
     inform_reply.options[6] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
     inform_reply.options[7] = (uint8_t)(config->dns[0] & 0xFF);
+    inform.options[25]=0xFF;
 
     memcpy(inform_reply.chaddr, request->chaddr, request->hlen);
 
@@ -429,6 +462,7 @@ void send_DHCP_NACK(int server_socket, const dhcp_message *request, const struct
     nack.options[0] = DHCP_OPTION_MSG_TYPE;
     nack.options[1]=1;
     nack.options[2]=6;
+    nack.options[3]=0xFF;
 
     memcpy(nack.chaddr, request->chaddr, request->hlen);
 
@@ -443,6 +477,46 @@ void send_DHCP_NACK(int server_socket, const dhcp_message *request, const struct
     }
 
     print_dhcp_message(&nack);
+}
+
+void deserializare_dhcp_message(const char *buffer, dhcp_message *message)
+{
+    memcpy(&message->op, buffer, sizeof(message->op));
+    memcpy(&message->htype, buffer + 1, sizeof(message->htype));
+    memcpy(&message->hlen, buffer + 2, sizeof(message->hlen));
+    memcpy(&message->hops, buffer + 3, sizeof(message->hops));
+
+    // Conversii pentru endianness
+    uint32_t xid_net;
+    memcpy(&xid_net, buffer + 4, sizeof(message->xid));
+    message->xid = ntohl(xid_net);
+
+    memcpy(&message->secs, buffer + 8, sizeof(message->secs));
+    memcpy(&message->flags, buffer + 10, sizeof(message->flags));
+    memcpy(&message->ciaddr, buffer + 12, sizeof(message->ciaddr));
+    memcpy(&message->yiaddr, buffer + 16, sizeof(message->yiaddr));
+    memcpy(&message->siaddr, buffer + 20, sizeof(message->siaddr));
+    memcpy(&message->giaddr, buffer + 24, sizeof(message->giaddr));
+    memcpy(message->chaddr, buffer + 28, sizeof(message->chaddr));
+    memcpy(message->sname, buffer + 44, sizeof(message->sname));
+    memcpy(message->file, buffer + 108, sizeof(message->file));
+
+    size_t options_len=DHCP_OPTIONS_MAX_LEN;
+    memcpy(message->options, buffer + 236, options_len);
+
+//setarea markerului de sfarsit
+    for(size_t i=0;i<options_len;i++)
+    {
+        if(message->options[i]==0xFF)
+        {
+            return;
+        }
+    }
+
+    if (options_len < DHCP_OPTIONS_MAX_LEN) 
+    {
+        message->options[options_len] = 0xFF;
+    }
 }
 
 void handle_client(int server_socket, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
@@ -461,17 +535,22 @@ void handle_client(int server_socket, ip_pool_ind *pool, binding_list *bindings,
     printf("Message received from the client: %s\n", buffer);
     fflush(stdout);
 
-    const char *response = "Hello! I'm the server. I received your message! ";
-    ssize_t send_bytes = sendto(server_socket, response, strlen(response), 0, (struct sockaddr*)&client_addr, client_len);
-    if (send_bytes < 0)
-    {
-        perror("Error: Couldn't send the message to client!");
-        close(server_socket);
-        exit(EXIT_FAILURE);
-    }
+    // const char *response = "Hello! I'm the server. I received your message! ";
+    // ssize_t send_bytes = sendto(server_socket, response, strlen(response), 0, (struct sockaddr*)&client_addr, client_len);
+    // if (send_bytes < 0)
+    // {
+    //     perror("Error: Couldn't send the message to client!");
+    //     close(server_socket);
+    //     exit(EXIT_FAILURE);
+    // }
 
     // Convorbire prin mesaje DHCP
-    dhcp_message *request = (dhcp_message*)buffer;
+
+    //dhcp_message *request = (dhcp_message*)buffer;
+    //apelare functie de deserializare
+    dhcp_message *request;
+    deserializare_dhcp_message(buffer, request);
+
     uint8_t message_type=get_dhcp_message_type(request->options, sizeof(request->options));
     printf("DHCP Message type: %u\n", message_type);
     print_dhcp_message(request);
