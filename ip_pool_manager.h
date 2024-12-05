@@ -59,7 +59,7 @@ void remove_binding (ip_binding *binding);
 void update_bindings_statuses (binding_list *list);
 void cleanup_expired_bindings(binding_list *list);
 
-ip_binding *search_binding (binding_list *list, uint8_t *cident, uint8_t cident_len, int is_static, int status);
+ip_binding *search_binding (binding_list *list, const uint8_t *cident, uint8_t cident_len, int is_static, int status);
 ip_binding *new_dynamic_binding (binding_list *list, ip_pool_ind *indexes, uint32_t address, uint8_t *cident, uint8_t cident_len);
 
 

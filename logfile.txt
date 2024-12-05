@@ -12,3 +12,803 @@ Intervalul IP: 192.168.1.100 - 192.168.1.200;
 Server configuration loaded successfully
 Server is open and it listens on 67 port.
 Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x65
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:14:00:16
+DHCP Offer sent to client: IP address 100.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 100.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x64
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:0f:6e:24
+DHCP Offer sent to client: IP address 101.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 101.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 3
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x65
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:14:00:16
+DHCP Offer sent to client: IP address 102.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 102.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 3
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x64
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:0f:6e:24
+DHCP Offer sent to client: IP address 103.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 103.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 6
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x65
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:14:00:16
+DHCP Offer sent to client: IP address 104.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 104.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 6
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x64
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:0f:6e:24
+DHCP Offer sent to client: IP address 105.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 105.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 12
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x65
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:14:00:16
+DHCP Offer sent to client: IP address 106.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 106.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 14
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x64
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:0f:6e:24
+DHCP Offer sent to client: IP address 107.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0x8AE3454D
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 107.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:0F:6E:24
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================
+Message received from the client: 
+Option code: 53, Length: 1
+DHCP Message type: 1
+========== DHCP Message ==========
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 20
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x65
+  Option[13]: 0x0C
+  Option[14]: 0x12
+  Option[15]: 0x61
+  Option[16]: 0x6E
+  Option[17]: 0x64
+  Option[18]: 0x72
+  Option[19]: 0x65
+  Option[20]: 0x65
+  Option[21]: 0x61
+  Option[22]: 0x2D
+  Option[23]: 0x56
+  Option[24]: 0x69
+  Option[25]: 0x72
+  Option[26]: 0x74
+  Option[27]: 0x75
+  Option[28]: 0x61
+  Option[29]: 0x6C
+  Option[30]: 0x42
+  Option[31]: 0x6F
+  Option[32]: 0x78
+  Option[33]: 0x37
+  Option[34]: 0x0D
+  Option[35]: 0x01
+  Option[36]: 0x1C
+  Option[37]: 0x02
+  Option[38]: 0x03
+  Option[39]: 0x0F
+  Option[40]: 0x06
+  Option[41]: 0x77
+  Option[42]: 0x0C
+  Option[43]: 0x2C
+  Option[44]: 0x2F
+  Option[45]: 0x1A
+  Option[46]: 0x79
+  Option[47]: 0x2A
+==================================
+DHCP Discover received from client with MAC: 08:00:27:14:00:16
+DHCP Offer sent to client: IP address 108.1.168.192
+========== DHCP Message ==========
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xBB364572
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 108.1.168.192
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:14:00:16
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x35
+  Option[1]: 0x02
+==================================

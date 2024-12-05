@@ -104,7 +104,7 @@ void cleanup_expired_bindings(binding_list *list)
 
 }
 
-ip_binding *search_binding(binding_list *list, uint8_t *cident, uint8_t cident_len, int is_static, int status)
+ip_binding *search_binding(binding_list *list, const uint8_t *cident, uint8_t cident_len, int is_static, int status)
 {
     ip_binding *binding, *binding_temp;
     LIST_FOREACH_SAFE(binding, list,pointers, binding_temp)

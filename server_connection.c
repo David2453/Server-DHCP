@@ -50,9 +50,10 @@ uint8_t get_dhcp_message_type(const uint8_t *options, size_t options_len)
     // return 0; 
 
 
-      size_t i = 0;
+    size_t i = 4; //sar peste magic cookie
     while (i < options_len) 
     {
+        printf("Option code: %u, Length: %u\n", options[i], options[i + 1]);
         if (options[i] == 0xFF) 
         { 
             break;
@@ -311,11 +312,12 @@ ip_binding *find_binding(binding_list *bindings, const uint8_t *cident, uint8_t 
 
 void send_DHCP_Ack(int server_socket, const dhcp_message *request, const struct sockaddr_in *client_addr, socklen_t client_len,ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
 {
-    ip_binding *binding=find_binding(bindings, request->chaddr, request->hlen);
-    if(!binding || binding->status != 1)
+    //ip_binding *binding=find_binding(bindings, request->chaddr, request->hlen);
+    ip_binding *binding=search_binding(bindings,request->chaddr,client_len,STATIC_OR_DYNAMIC,1);
+    if(!binding /*|| binding->status != 1*/)
     {
-        printf("No active binding dor this client\n");
-        //return;
+        printf("No active binding for this client\n");
+        return;
     } else
     {
         printf("Binding found: IP %s\n", inet_ntoa(*(struct in_addr *)&binding->address));
@@ -332,32 +334,37 @@ void send_DHCP_Ack(int server_socket, const dhcp_message *request, const struct 
     ack.siaddr=config->router;
 
     ack.options[0]=DHCP_OPTION_MSG_TYPE;
-    ack.options[1]=4; //DHCP Ack
-    ack.options[2]=IP_ADDRESS_LEASE_TIME; //lease time
-    ack.options[3]=(uint8_t)((config->max_lease_time >> 24) & 0xFF);
-    ack.options[4] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
-    ack.options[5] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
-    ack.options[6] = (uint8_t)(config->max_lease_time & 0xFF);
-    ack.options[7]=SUBNET_MASK;
-    ack.options[8]=4; //nr bytes pt mascca de subretea
-    ack.options[9] = (uint8_t)((config->subnet>> 24) & 0xFF);
-    ack.options[10] = (uint8_t)((config->subnet>> 16) & 0xFF);
-    ack.options[11] = (uint8_t)((config->subnet >> 8) & 0xFF);
-    ack.options[12] = (uint8_t)(config->subnet & 0xFF);
-    ack.options[13]=ROUTER;
-    ack.options[14]=4; //nr bytes pt gateway/router
-    ack.options[15] = (uint8_t)((config->router>> 24) & 0xFF);
-    ack.options[16] = (uint8_t)((config->router>> 16) & 0xFF);
-    ack.options[17] = (uint8_t)((config->router>> 8) & 0xFF);
-    ack.options[18] = (uint8_t)(config->router & 0xFF);
-    ack.options[19]=DOMAIN_NAME_SERVER;
-    ack.options[20]=4; //nr bytes pt DNS
-    ack.options[21] = (uint8_t)((config->dns[0] >> 24) & 0xFF); 
-    ack.options[22] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
-    ack.options[23] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
-    ack.options[24] = (uint8_t)(config->dns[0] & 0xFF);
-    ack.options[25]=0xFF;
+    ack.options[1]=1; //lungime DHCP Ack
+    ack.options[2]=DHCP_ACK; //ack
+    ack.options[3] = IP_ADDRESS_LEASE_TIME; // Lease Time
+    ack.options[4] = 4; // Lungime (4 octeți)
+    ack.options[5] = (uint8_t)((config->max_lease_time >> 24) & 0xFF);
+    ack.options[6] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
+    ack.options[7] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
+    ack.options[8] = (uint8_t)(config->max_lease_time & 0xFF);
 
+    ack.options[9] = SUBNET_MASK; // Subnet mask (cod 1)
+    ack.options[10] = 4; // Lungime
+    ack.options[11] = (uint8_t)((config->subnet >> 24) & 0xFF);
+    ack.options[12] = (uint8_t)((config->subnet >> 16) & 0xFF);
+    ack.options[13] = (uint8_t)((config->subnet >> 8) & 0xFF);
+    ack.options[14] = (uint8_t)(config->subnet & 0xFF);
+
+    ack.options[15] = ROUTER; // Router (cod 3)
+    ack.options[16] = 4; // Lungime
+    ack.options[17] = (uint8_t)((config->router >> 24) & 0xFF);
+    ack.options[18] = (uint8_t)((config->router >> 16) & 0xFF);
+    ack.options[19] = (uint8_t)((config->router >> 8) & 0xFF);
+    ack.options[20] = (uint8_t)(config->router & 0xFF);
+
+    ack.options[21] = DOMAIN_NAME_SERVER; // DNS (cod 6)
+    ack.options[22] = 4; // Lungime
+    ack.options[23] = (uint8_t)((config->dns[0] >> 24) & 0xFF);
+    ack.options[24] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
+    ack.options[25] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
+    ack.options[26] = (uint8_t)(config->dns[0] & 0xFF);
+
+    ack.options[27] = 0xFF; // Terminator
     memcpy(ack.chaddr, request->chaddr, request->hlen);
 
     ssize_t send_bytes = sendto(server_socket, &ack, sizeof(dhcp_message), 0, 
@@ -432,7 +439,7 @@ void handle_DHCP_Inform_Reply(int server_socket, const dhcp_message *request, co
     inform_reply.options[5] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
     inform_reply.options[6] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
     inform_reply.options[7] = (uint8_t)(config->dns[0] & 0xFF);
-    inform.options[25]=0xFF;
+    inform_reply.options[25]=0xFF;
 
     memcpy(inform_reply.chaddr, request->chaddr, request->hlen);
 
@@ -546,10 +553,10 @@ void handle_client(int server_socket, ip_pool_ind *pool, binding_list *bindings,
 
     // Convorbire prin mesaje DHCP
 
-    //dhcp_message *request = (dhcp_message*)buffer;
+    dhcp_message *request = (dhcp_message*)buffer;
     //apelare functie de deserializare
-    dhcp_message *request;
-    deserializare_dhcp_message(buffer, request);
+    //dhcp_message *request;
+    //deserializare_dhcp_message(buffer, request);
 
     uint8_t message_type=get_dhcp_message_type(request->options, sizeof(request->options));
     printf("DHCP Message type: %u\n", message_type);
