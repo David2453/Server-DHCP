@@ -647,54 +647,10 @@ void send_DHCP_NACK(int server_socket, const dhcp_message *request, const struct
     print_dhcp_message(&nack);
 }
 
-void deserializare_dhcp_message(const char *buffer, dhcp_message *message)
-{
-    memcpy(&message->op, buffer, sizeof(message->op));
-    memcpy(&message->htype, buffer + 1, sizeof(message->htype));
-    memcpy(&message->hlen, buffer + 2, sizeof(message->hlen));
-    memcpy(&message->hops, buffer + 3, sizeof(message->hops));
-
-    // Conversii pentru endianness
-    uint32_t xid_net;
-    memcpy(&xid_net, buffer + 4, sizeof(message->xid));
-    message->xid = ntohl(xid_net);
-
-    memcpy(&message->secs, buffer + 8, sizeof(message->secs));
-    memcpy(&message->flags, buffer + 10, sizeof(message->flags));
-    memcpy(&message->ciaddr, buffer + 12, sizeof(message->ciaddr));
-    memcpy(&message->yiaddr, buffer + 16, sizeof(message->yiaddr));
-    memcpy(&message->siaddr, buffer + 20, sizeof(message->siaddr));
-    memcpy(&message->giaddr, buffer + 24, sizeof(message->giaddr));
-    memcpy(message->chaddr, buffer + 28, sizeof(message->chaddr));
-    memcpy(message->sname, buffer + 44, sizeof(message->sname));
-    memcpy(message->file, buffer + 108, sizeof(message->file));
-
-    size_t options_len=DHCP_OPTIONS_MAX_LEN;
-    memcpy(message->options, buffer + 236, options_len);
-
-//setarea markerului de sfarsit
-    for(size_t i=0;i<options_len;i++)
-    {
-        if(message->options[i]==0xFF)
-        {
-            return;
-        }
-    }
-
-    if (options_len < DHCP_OPTIONS_MAX_LEN) 
-    {
-        message->options[options_len] = 0xFF;
-    }
-}
-// int server_socket, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config
 
 void handle_client(ClientTask* task )
 {
-    // struct sockaddr_in client_addr;
-    // socklen_t client_len = sizeof(client_addr);
-    // char buffer[BUFFER_SIZE];
-
-    // ssize_t recv_bytes = recvfrom(task->server_socket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
+    
      if (task-> recv_bytes< 0)
     {
         perror("Error: Couldn't receive a message from client!");
