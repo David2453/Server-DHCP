@@ -1,0 +1,27 @@
+# Configuratie server DHCP
+
+#Optiuni generale
+option domain-name "localdomain";
+option domain-name-servers 8.8.8.8, 8.8.4.4;
+
+#Timpi de lease
+default-lease-time 600;
+max-lease-time 7200;
+
+# ddns-update-style none;
+
+# Subnet si setari IP
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.10 192.168.1.20;
+    option routers 192.168.1.1;
+    option subnet-mask 255.255.255.0 ;
+    option broadcast-address 192.168.1.255;
+}
+
+authoritative;
+
+# Binding PENDING time
+#pending-time 30;
+
+# Interfata de retea pentru serverul DHCP
+INTERFACES="enp0s3";

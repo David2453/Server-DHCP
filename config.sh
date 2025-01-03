@@ -1,14 +1,14 @@
 #!/bin/bash
 
-INTERFACE='enp0s8'
+INTERFACE='enp0s3'
 
 IP_ADDRESS=$(ip addr show $INTERFACE | awk '/inet /{ print $2 }' | cut -d/ -f1)
 NETWORK_MASK=$(ip addr show $INTERFACE | awk '/inet /{ print $2 }' | cut -d/ -f2)
 DEFAULT_GATEWAY=$(ip route | grep default | grep $INTERFACE | awk '{print $3}')
 
 # pool de adrese IP
-POOL_START='192.168.1.100'
-POOL_END='192.168.1.200'
+POOL_START='192.168.1.10'
+POOL_END='192.168.1.100'
 
 IP_ADDRESS='192.168.1.100'
 DEFAULT_GATEWAY=${IP_ADDRESS%.*}.1
@@ -19,7 +19,7 @@ MAX_LEASE_TIME='7200'
 
 PENDING_TIME='30'
 
-DHCP_CONFIG_FILE='/etc/dhcp/dhcpd.conf'
+DHCP_CONFIG_FILE='dhcp_config_file.txt'
 
 cat <<EOL | sudo tee $DHCP_CONFIG_FILE
 # Configuratie server DHCP

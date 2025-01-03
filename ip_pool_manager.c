@@ -104,32 +104,41 @@ void cleanup_expired_bindings(binding_list *list)
 
 }
 
-ip_binding *search_binding(binding_list *list, const uint8_t *cident, uint8_t cident_len, int is_static, int status)
-{
+ip_binding *search_binding(binding_list *list, const uint8_t *cident, uint8_t cident_len, int is_static, int status) {
+    if (!list || !cident) {
+        printf("Invalid parameters passed to search_binding\n");
+        return NULL;
+    }
+
     ip_binding *binding, *binding_temp;
-    LIST_FOREACH_SAFE(binding, list,pointers, binding_temp)
-    {
-     if((binding->is_static == is_static || is_static == STATIC_OR_DYNAMIC) && binding->cident_len == cident_len && memcmp(binding->cident, cident, cident_len) == 0) 
-        {
-            if(status == 0)
-        {     
-                return binding;
-        }
-        else if(status == binding->status)
-            {
-                return binding;
+
+    LIST_FOREACH_SAFE(binding, list, pointers, binding_temp) {
+        // Debug: Afișează binding-ul curent pentru verificare
+        printf("Checking binding: is_static=%d, cident_len=%d, status=%d\n",
+               binding->is_static, binding->cident_len, binding->status);
+
+        // Verifică dacă binding-ul corespunde criteriilor
+        if ((binding->is_static == is_static || is_static == STATIC_OR_DYNAMIC) &&
+            binding->cident_len == cident_len &&
+            memcmp(binding->cident, cident, cident_len) == 0) {
+            if (status == 0 || binding->status == status) {
+                printf("Matching binding found: IP=%s\n", inet_ntoa(*(struct in_addr *)&binding->address));
+                return binding; // Găsit
             }
         }
     }
-    return NULL;
+
+    printf("No matching binding found\n");
+    return NULL; // Nu a fost găsit niciun binding
 }
+
 
 static uint32_t take_free_address(ip_pool_ind *indexes)
 {
     if(indexes->ip_current<=indexes->ip_last)
     {
         uint32_t address=indexes->ip_current;
-        indexes->ip_current=htonl(ntohl(indexes->ip_current)+1);
+        indexes->ip_current=ntohl(indexes->ip_current)+1;
         return address;
     }
 

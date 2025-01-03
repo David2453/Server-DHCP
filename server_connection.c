@@ -8,52 +8,82 @@
 #include<arpa/inet.h>
 #include<netinet/in.h>
 #include <fcntl.h>
+#include<pthread.h>
 
-#include "server_connection.h"
+
 #include "dhcp_structure.h"
+#include "server_connection.h"
 #include "ip_pool_manager.h"
 #include "config_reader.h"
 #include "options.h"
 
+#define THREAD_NUM 4
 #define DHCP_OPTION_MSG_TYPE 53
 #define DHCP_OPTIONS_MAX_LEN 276
-#define CONFIG_FILENAME "/etc/dhcp/dhcpd.conf"
+#define CONFIG_FILENAME "dhcp_config_file.txt"
+
+
+
+// int server_socket, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config
+
+
+ClientTask taskQueue[256];
+int taskCount = 0;
+
+
+//
+pthread_mutex_t mutexQueue;
+pthread_cond_t condQueue;
+
+pthread_mutex_t pool_mutex;
+pthread_mutex_t bindings_mutex;
+
+//
+
+void init()
+{
+
+}
+
+void submitTask(ClientTask task) {
+    pthread_mutex_lock(&mutexQueue);
+    taskQueue[taskCount] = task;
+    taskCount++;
+    pthread_mutex_unlock(&mutexQueue);
+    pthread_cond_signal(&condQueue);
+}
+// 1 2 3 4 5
+// 2 3 4 5
+
+void* startThread(void* args) {
+    while (1) {
+        ClientTask task;
+
+        pthread_mutex_lock(&mutexQueue);
+        while (taskCount == 0) {
+            pthread_cond_wait(&condQueue, &mutexQueue);
+        }
+
+        task = taskQueue[0];
+        int i;
+        for (i = 0; i < taskCount - 1; i++) {
+            taskQueue[i] = taskQueue[i + 1];
+        }
+        taskCount--;
+        pthread_mutex_unlock(&mutexQueue);
+        handle_client(&task);
+    }
+}
+
+
 
 uint8_t get_dhcp_message_type(const uint8_t *options, size_t options_len)
 {
-    // size_t i = 0;
-    // while (i < options_len) 
-
-    // {
-    //     uint8_t option_code=options[i];
-    //     if (option_code == 0xFF) 
-    //     { 
-    //         break;
-    //     }
-    //     if(i+1>=options_len)
-    //     {
-    //         break;
-    //     }
-
-    //     uint8_t option_len=options[i+1];
-    //     if(i+2+option_len>options_len)
-    //     {
-    //         break;
-    //     }
-
-    //     if (option_code == DHCP_OPTION_MSG_TYPE && option_len>=1) 
-    //     {
-    //         return options[i + 2]; //tip mesaj
-    //     }
-    //     i += 2 + option_len; //urmatoarea optiune
-    // }
-    // return 0; 
-
-
+    
     size_t i = 4; //sar peste magic cookie
     while (i < options_len) 
     {
-        printf("Option code: %u, Length: %u\n", options[i], options[i + 1]);
+        //printf("Option code: %u, Length: %u\n", options[i], options[i + 1]);
         if (options[i] == 0xFF) 
         { 
             break;
@@ -85,9 +115,16 @@ int setup_server_socket()
     }
 
     memset(&server_addr, 0, sizeof(server_addr));
+   
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(BOOTPS);
+    int broadcast = 1;
+    if(setsockopt(server_socket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast))<0)
+    {
+        perror("Setarea permisiunilor de BROADCAST a esuat: ");
+        exit(-1);
+    }
 
     if (bind(server_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
     {
@@ -100,8 +137,75 @@ int setup_server_socket()
 }
 
 void print_dhcp_message(const dhcp_message *msg) {
-    printf("========== DHCP Message ==========\n");
+    uint8_t message_type=get_dhcp_message_type(msg->options, sizeof(msg->options));
+    printf("\n\n\n\n\n========== DHCP Message ==========\n");
     fflush(stdout);
+
+    switch(message_type)
+    {
+        case 1:
+        printf("DHCP DISCOVER received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 2:
+        printf("DHCP OFFER sent to client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 3:
+        printf("DHCP REQUEST received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 4:
+        printf("DHCP DECLINE received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 5:
+        printf("DHCP ACK sent to client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 6:
+        printf("DHCP NACK sent to client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 7:
+        printf("DHCP RELEASE received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        case 8:
+        printf("DHCP INFORM received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+                            msg->chaddr[0], msg->chaddr[1], msg->chaddr[2],
+                            msg->chaddr[3], msg->chaddr[4], msg->chaddr[5]);
+        fflush(stdout);
+        break;
+
+        default:
+        break;
+
+    }
+
+    printf("DHCP Message type: %u\n", message_type);
+    
 
     printf("Operation (op): %u (%s)\n", msg->op,
            msg->op == BOOTREQUEST ? "BOOTREQUEST" : "BOOTREPLY");
@@ -187,115 +291,142 @@ int is_ip_available(ip_pool_ind *pool, binding_list *bindings, uint32_t ip_to_ch
     return 1;
 }
 
-uint32_t offer_ip_available(ip_pool_ind *pool, binding_list *bindings)
-{
-    uint32_t offered_ip=0;
-    for(uint32_t ip=pool->ip_first; ip<=pool->ip_last;ip++)
-    {
-        if(is_ip_available(pool, bindings, ip))
-        {
-            offered_ip=ip;
-            pool->ip_current=ip;
+uint32_t offer_ip_available(ip_pool_ind *pool, binding_list *bindings) {
+    uint32_t offered_ip = 0;
+    pthread_mutex_lock(&pool_mutex); // protecție în caz de acces concurent
+    for (uint32_t ip = pool->ip_current + 1; ip <= pool->ip_last; ip++) {
+        if (is_ip_available(pool, bindings, ip)) {
+            offered_ip = ip;
+            pool->ip_current = ip;
             break;
         }
     }
+    pthread_mutex_unlock(&pool_mutex);
     return offered_ip;
 }
 
-void send_DHCP_Offer(int server_socket, const dhcp_message *request, const struct sockaddr_in *client_addr, socklen_t client_len, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
-{
-    if(pool->ip_current >= pool->ip_last)
-    {
-        printf("NO available IP addresses in the pool\n");
+void display_binding_list(const binding_list *list) {
+    if (list == NULL) {
+        printf("Lista este NULL.\n");
+        return;
+    }
+
+    const ip_binding *item;
+    int index = 0;
+
+    LIST_FOREACH(item, list, pointers) {
+        printf("Element %d:\n", index++);
+        printf("  Address: %u.%u.%u.%u\n",
+               (item->address >> 24) & 0xFF,
+               (item->address >> 16) & 0xFF,
+               (item->address >> 8) & 0xFF,
+               item->address & 0xFF);
+        printf("  CID Identifier Length: %u\n", item->cident_len);
+        printf("  CID Identifier: ");
+        for (int i = 0; i < item->cident_len; i++) {
+            printf("%02X", item->cident[i]);
+        }
+        printf("\n");
+        printf("  Binding Time: %s", ctime(&item->binding_time));
+        printf("  Lease Time: %s", ctime(&item->lease_time));
+        printf("  Status: %d\n", item->status);
+        printf("  Is Static: %s\n", item->is_static ? "Yes" : "No");
+        printf("----------------------\n");
+    }
+
+    if (index == 0) {
+        printf("Lista este goalĂ.\n");
+    }
+}
+
+
+
+void send_DHCP_Offer(int server_socket, const dhcp_message *request,  struct sockaddr_in *client_addr, socklen_t client_len, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config) {
+    if (!request || !client_addr) {
+        perror("Invalid request or client address!");
+        return;
+    }
+    
+    if (pool->ip_current >= pool->ip_last) {
+        printf("No available IP addresses in the pool.\n");
         fflush(stdout);
         return;
     }
 
-    //alocare dinamica ip
-    uint32_t offered_ip=offer_ip_available(pool, bindings);
-   
-    if(offered_ip==0)
-    {
-        printf("NO available IP addresses in the pool\n");
+    uint32_t offered_ip = offer_ip_available(pool, bindings);
+    if (offered_ip == 0) {
+        printf("No available IP addresses in the pool.\n");
         fflush(stdout);
         return;
     }
-    
-    //creare binding nou pentru ip-ul oferit
-    ip_binding *new_binding=(ip_binding*)malloc(sizeof(ip_binding));
-    if(!new_binding)
-    {
-        perror("Error allocating memory for new binding\n");
+
+    ip_binding *new_binding = (ip_binding *)malloc(sizeof(ip_binding));
+    if (!new_binding) {
+        perror("Error allocating memory for new binding");
         return;
     }
-    
-    new_binding->address=offered_ip;
-    new_binding->binding_time=time(NULL);
-    new_binding->lease_time=new_binding->binding_time + config->max_lease_time;
-    new_binding->status=1; //activ
-    new_binding->is_static=0; //dinamic
-    new_binding->cident_len=request->hlen;
+
+    new_binding->address = offered_ip;
+    new_binding->binding_time = time(NULL);
+    new_binding->lease_time = new_binding->binding_time + config->max_lease_time;
+    new_binding->status = 1; // activ
+    new_binding->is_static = 0; // dinamic
+    new_binding->cident_len = request->hlen;
     memcpy(new_binding->cident, request->chaddr, request->hlen);
 
     LIST_INSERT_HEAD(bindings, new_binding, pointers);
+
+    printf("+++++Lista binding-urilor+++++.\n");
+    display_binding_list(bindings);
 
     dhcp_message offer;
     memset(&offer, 0, sizeof(dhcp_message));
     offer.op = BOOTREPLY;
     offer.htype = request->htype;
-    offer.hlen = request->hlen; 
+    offer.hlen = request->hlen;
     offer.xid = request->xid;
+    offer.secs = 0; // Secunde - poate fi lăsat 0
+    offer.flags = request->flags; // Copiază steagurile din cerere
+    offer.yiaddr = htonl(offered_ip); // Adresa oferită clientului
+    offer.siaddr = htonl(config->router); // Adresa serverului (opțional)
+    offer.giaddr = 0; // Gateway IP (0 în acest caz)
+    memset(offer.sname, 0, sizeof(offer.sname)); // Server Name
+    memset(offer.file, 0, sizeof(offer.file)); // Boot File Name
 
-    //adresele IP oferite dinamic
-    offer.siaddr=config->router;
-    offer.yiaddr=offered_ip;
+    // Opțiuni configurate corect
+    int opt_idx = 0;
+    offer.options[opt_idx++] = 0x63;
+    offer.options[opt_idx++] = 0x82;
+    offer.options[opt_idx++] = 0x53;
+    offer.options[opt_idx++] = 0x63;
 
-//OPTIUNI SUPLIMENTARE
+    offer.options[opt_idx++] = DHCP_OPTION_MSG_TYPE;
+    offer.options[opt_idx++] = 1;
+    offer.options[opt_idx++] = DHCP_OFFER;
 
-    offer.options[0]=DHCP_OPTION_MSG_TYPE;
-    offer.options[1]=2; //DHCP Offer
-    offer.options[2]=0xFF;
-    // offer.options[2]=IP_ADDRESS_LEASE_TIME; //lease time
-    // offer.options[3]=(uint8_t)((config->max_lease_time >> 24) & 0xFF);
-    // offer.options[4] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
-    // offer.options[5] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
-    // offer.options[6] = (uint8_t)(config->max_lease_time & 0xFF);
-    // offer.options[7]=SUBNET_MASK;
-    // offer.options[8]=4; //nr bytes pt mascca de subretea
-    // offer.options[9] = (uint8_t)((config->subnet>> 24) & 0xFF);
-    // offer.options[10] = (uint8_t)((config->subnet>> 16) & 0xFF);
-    // offer.options[11] = (uint8_t)((config->subnet >> 8) & 0xFF);
-    // offer.options[12] = (uint8_t)(config->subnet & 0xFF);
-    // offer.options[13]=ROUTER;
-    // offer.options[14]=4; //nr bytes pt gateway/router
-    // offer.options[15] = (uint8_t)((config->router>> 24) & 0xFF);
-    // offer.options[16] = (uint8_t)((config->router>> 16) & 0xFF);
-    // offer.options[17] = (uint8_t)((config->router>> 8) & 0xFF);
-    // offer.options[18] = (uint8_t)(config->router & 0xFF);
-    // offer.options[19]=DOMAIN_NAME_SERVER;
-    // offer.options[20]=4; //nr bytes pt DNS
-    // offer.options[21] = (uint8_t)((config->dns[0] >> 24) & 0xFF); 
-    // offer.options[22] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
-    // offer.options[23] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
-    // offer.options[24] = (uint8_t)(config->dns[0] & 0xFF);
+    offer.options[opt_idx++] = IP_ADDRESS_LEASE_TIME;
+    offer.options[opt_idx++] = 4;
+    offer.options[opt_idx++] = (uint8_t)((config->max_lease_time >> 24) & 0xFF);
+    offer.options[opt_idx++] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
+    offer.options[opt_idx++] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
+    offer.options[opt_idx++] = (uint8_t)(config->max_lease_time & 0xFF);
 
-    //adresa MAC
-    memcpy(offer.chaddr, request->chaddr, request->hlen);
+    offer.options[opt_idx++] = 0xFF; // End of options
 
-    ssize_t send_bytes=sendto(server_socket, &offer, sizeof(dhcp_message),0,
-                            (struct sockaddr*)client_addr, client_len);
-    if (send_bytes < 0) 
-    {
-        perror("Error: Couldn't send DHCP Offer to client!");
-        close(server_socket);
-        exit(EXIT_FAILURE);
-    } else
-    {
-        printf("DHCP Offer sent to client: IP address %s\n", inet_ntoa(*(struct in_addr *)&offer.yiaddr));
-        fflush(stdout);
     
+
+    memcpy(offer.chaddr, request->chaddr, request->hlen);
+    client_addr->sin_family=AF_INET;
+    client_addr->sin_port=htons(68);
+    client_addr->sin_addr.s_addr=inet_addr("192.168.1.255");
+
+
+    ssize_t send_bytes = sendto(server_socket, &offer, sizeof(dhcp_message), 0, (struct sockaddr *)client_addr, client_len);
+    if (send_bytes < 0) {
+        perror("Error sending DHCP Offer to client");
+    } else {
+        print_dhcp_message(&offer);
     }
-    print_dhcp_message(&offer);
 }
 
 ip_binding *find_binding(binding_list *bindings, const uint8_t *cident, uint8_t cident_len)
@@ -310,10 +441,18 @@ ip_binding *find_binding(binding_list *bindings, const uint8_t *cident, uint8_t 
     return NULL;
 }
 
-void send_DHCP_Ack(int server_socket, const dhcp_message *request, const struct sockaddr_in *client_addr, socklen_t client_len,ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
+void send_DHCP_Ack(int server_socket, const dhcp_message *request, struct sockaddr_in *client_addr, socklen_t client_len,ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
 {
+
+    if (!request || !request->chaddr) {
+        printf("Invalid DHCP request\n");
+        return;
+    }
     //ip_binding *binding=find_binding(bindings, request->chaddr, request->hlen);
-    ip_binding *binding=search_binding(bindings,request->chaddr,client_len,STATIC_OR_DYNAMIC,1);
+    pthread_mutex_lock(&bindings_mutex);
+    ip_binding *binding=search_binding(bindings,request->chaddr,6,STATIC_OR_DYNAMIC,1);
+    pthread_mutex_unlock(&bindings_mutex);
+
     if(!binding /*|| binding->status != 1*/)
     {
         printf("No active binding for this client\n");
@@ -329,43 +468,65 @@ void send_DHCP_Ack(int server_socket, const dhcp_message *request, const struct 
     ack.htype = request->htype;
     ack.hlen = request->hlen; 
     ack.xid = request->xid;
-   
-    ack.yiaddr=binding->address;
-    ack.siaddr=config->router;
 
-    ack.options[0]=DHCP_OPTION_MSG_TYPE;
-    ack.options[1]=1; //lungime DHCP Ack
-    ack.options[2]=DHCP_ACK; //ack
-    ack.options[3] = IP_ADDRESS_LEASE_TIME; // Lease Time
-    ack.options[4] = 4; // Lungime (4 octeți)
-    ack.options[5] = (uint8_t)((config->max_lease_time >> 24) & 0xFF);
-    ack.options[6] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
-    ack.options[7] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
-    ack.options[8] = (uint8_t)(config->max_lease_time & 0xFF);
+    ack.yiaddr = htonl(binding->address);
+    ack.siaddr =  htonl(0xC0A80101); // Adresa IP 192.168.1.1
 
-    ack.options[9] = SUBNET_MASK; // Subnet mask (cod 1)
-    ack.options[10] = 4; // Lungime
-    ack.options[11] = (uint8_t)((config->subnet >> 24) & 0xFF);
-    ack.options[12] = (uint8_t)((config->subnet >> 16) & 0xFF);
-    ack.options[13] = (uint8_t)((config->subnet >> 8) & 0xFF);
-    ack.options[14] = (uint8_t)(config->subnet & 0xFF);
+    // Magic cookie (4 octeți)
+    ack.options[0] = 0x63;
+    ack.options[1] = 0x82;
+    ack.options[2] = 0x53;
+    ack.options[3] = 0x63;
 
-    ack.options[15] = ROUTER; // Router (cod 3)
-    ack.options[16] = 4; // Lungime
-    ack.options[17] = (uint8_t)((config->router >> 24) & 0xFF);
-    ack.options[18] = (uint8_t)((config->router >> 16) & 0xFF);
-    ack.options[19] = (uint8_t)((config->router >> 8) & 0xFF);
-    ack.options[20] = (uint8_t)(config->router & 0xFF);
+    // DHCP Message Type
+    ack.options[4] = DHCP_OPTION_MSG_TYPE;
+    ack.options[5] = 1; // Lungime DHCP Ack
+    ack.options[6] = DHCP_ACK;
 
-    ack.options[21] = DOMAIN_NAME_SERVER; // DNS (cod 6)
-    ack.options[22] = 4; // Lungime
-    ack.options[23] = (uint8_t)((config->dns[0] >> 24) & 0xFF);
-    ack.options[24] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
-    ack.options[25] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
-    ack.options[26] = (uint8_t)(config->dns[0] & 0xFF);
+    // Lease Time
+    ack.options[7] = IP_ADDRESS_LEASE_TIME; // Lease Time
+    ack.options[8] = 4; // Lungime (4 octeți)
+    ack.options[9] = (uint8_t)((config->max_lease_time >> 24) & 0xFF);
+    ack.options[10] = (uint8_t)((config->max_lease_time >> 16) & 0xFF);
+    ack.options[11] = (uint8_t)((config->max_lease_time >> 8) & 0xFF);
+    ack.options[12] = (uint8_t)(config->max_lease_time & 0xFF);
 
-    ack.options[27] = 0xFF; // Terminator
+    // Subnet Mask
+    config->subnet = 0xFFFFFF00; // 255.255.255.0    
+    ack.options[13] = SUBNET_MASK; // Subnet mask (cod 1)
+    ack.options[14] = 4; // Lungime
+    ack.options[15] = (uint8_t)((config->subnet >> 24) & 0xFF);
+    ack.options[16] = (uint8_t)((config->subnet >> 16) & 0xFF);
+    ack.options[17] = (uint8_t)((config->subnet >> 8) & 0xFF);
+    ack.options[18] = (uint8_t)(config->subnet & 0xFF);
+
+    // Router
+    ack.options[19] = ROUTER; // Router (cod 3)
+    ack.options[20] = 4; // Lungime
+    ack.options[21] = (uint8_t)((config->router >> 24) & 0xFF);
+    ack.options[22] = (uint8_t)((config->router >> 16) & 0xFF);
+    ack.options[23] = (uint8_t)((config->router >> 8) & 0xFF);
+    ack.options[24] = (uint8_t)(config->router & 0xFF);
+
+    // DNS
+    config->dns[0] = 0x08080808; // 8.8.8.8
+    ack.options[25] = DOMAIN_NAME_SERVER; // DNS (cod 6)
+    ack.options[26] = 4; // Lungime
+    ack.options[27] = (uint8_t)((config->dns[0] >> 24) & 0xFF);
+    ack.options[28] = (uint8_t)((config->dns[0] >> 16) & 0xFF);
+    ack.options[29] = (uint8_t)((config->dns[0] >> 8) & 0xFF);
+    ack.options[30] = (uint8_t)(config->dns[0] & 0xFF);
+
+    // Terminator
+    ack.options[31] = 0xFF; // Terminator
+
+    // Adresa hardware a clientului
     memcpy(ack.chaddr, request->chaddr, request->hlen);
+    //client_addr->sin_addr=htonl(0xAC100F3E);
+    client_addr->sin_family=AF_INET;
+    client_addr->sin_port=htons(68);
+    client_addr->sin_addr.s_addr = inet_addr("192.168.1.255");
+
 
     ssize_t send_bytes = sendto(server_socket, &ack, sizeof(dhcp_message), 0, 
                                 (struct sockaddr*)client_addr, client_len);
@@ -525,86 +686,30 @@ void deserializare_dhcp_message(const char *buffer, dhcp_message *message)
         message->options[options_len] = 0xFF;
     }
 }
+// int server_socket, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config
 
-void handle_client(int server_socket, ip_pool_ind *pool, binding_list *bindings, dhcp_config *config)
+void handle_client(ClientTask* task )
 {
-    struct sockaddr_in client_addr;
-    socklen_t client_len = sizeof(client_addr);
-    char buffer[BUFFER_SIZE];
+    // struct sockaddr_in client_addr;
+    // socklen_t client_len = sizeof(client_addr);
+    // char buffer[BUFFER_SIZE];
 
-    ssize_t recv_bytes = recvfrom(server_socket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
-    if (recv_bytes < 0)
+    // ssize_t recv_bytes = recvfrom(task->server_socket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
+     if (task-> recv_bytes< 0)
     {
         perror("Error: Couldn't receive a message from client!");
         return;
     }
-
-    printf("Message received from the client: %s\n", buffer);
     fflush(stdout);
 
-    // const char *response = "Hello! I'm the server. I received your message! ";
-    // ssize_t send_bytes = sendto(server_socket, response, strlen(response), 0, (struct sockaddr*)&client_addr, client_len);
-    // if (send_bytes < 0)
-    // {
-    //     perror("Error: Couldn't send the message to client!");
-    //     close(server_socket);
-    //     exit(EXIT_FAILURE);
-    // }
-
+    
     // Convorbire prin mesaje DHCP
 
-    dhcp_message *request = (dhcp_message*)buffer;
-    //apelare functie de deserializare
-    //dhcp_message *request;
-    //deserializare_dhcp_message(buffer, request);
-
+    dhcp_message *request = (dhcp_message*)task->buffer;
     uint8_t message_type=get_dhcp_message_type(request->options, sizeof(request->options));
-    printf("DHCP Message type: %u\n", message_type);
-    print_dhcp_message(request);
+
     fflush(stdout);
     
-
-    // if (request->op == BOOTREQUEST)
-    // {
-    //     if (request->xid)
-    //     {
-    //         printf("DHCP Discover received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
-    //                request->chaddr[0], request->chaddr[1], request->chaddr[2],
-    //                request->chaddr[3], request->chaddr[4], request->chaddr[5]);
-    //         fflush(stdout);
-
-    //         // Mesajul offer
-    //         dhcp_message offer;
-    //         memset(&offer, 0, sizeof(dhcp_message));
-    //         offer.op = BOOTREPLY;
-    //         offer.htype = request->htype;
-    //         offer.hlen = request->hlen; 
-    //         offer.xid = request->xid;
-    //         // Exemplu adrese IP oferite clientului
-    //         offer.yiaddr = inet_addr("192.168.1.100");
-    //         offer.siaddr = inet_addr("192.168.1.1");
-    //         memcpy(offer.chaddr, request->chaddr, ETHERNET_LEN);
-
-    //         ssize_t send_bytes = sendto(server_socket, &offer, sizeof(dhcp_message), 0, 
-    //                                     (struct sockaddr*)&client_addr, client_len);
-    //         if (send_bytes < 0)
-    //         {
-    //             perror("Error: Couldn't send DHCP Offer to client!");
-    //             close(server_socket);
-    //             exit(EXIT_FAILURE);
-    //         }
-
-    //         printf("DHCP Offer sent to client: IP address %s\n", inet_ntoa(*(struct in_addr *)&offer.yiaddr));
-    //         fflush(stdout);
-    //     }
-    // }
-    // else
-    // {
-    //     printf("Unexpected DHCP message received.\n");
-    //     fflush(stdout);
-    // }
-
-
     if(request->op==BOOTREQUEST)
     {
         if(request->xid)
@@ -612,35 +717,33 @@ void handle_client(int server_socket, ip_pool_ind *pool, binding_list *bindings,
             switch(message_type)
             {
                 case 1: //DISCOVER
-                    printf("DHCP Discover received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
-                            request->chaddr[0], request->chaddr[1], request->chaddr[2],
-                            request->chaddr[3], request->chaddr[4], request->chaddr[5]);
-                    fflush(stdout);
-                    
-                    send_DHCP_Offer(server_socket,request,&client_addr,client_len,pool, bindings,config);
+
+                    print_dhcp_message(request);
+                    send_DHCP_Offer(task->server_socket,request, &(task->client_addr),task->client_len,task->pool, task->bindings,task->config);
                     break;
 
                 case 3: //REQUEST
-                    printf("DHCP Request received from client with MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
-                            request->chaddr[0], request->chaddr[1], request->chaddr[2],
-                            request->chaddr[3], request->chaddr[4], request->chaddr[5]);
-                    fflush(stdout);
-
-                    send_DHCP_Ack(server_socket, request, &client_addr, client_len,pool, bindings,config);
+                    
+                    print_dhcp_message(request);
+                    send_DHCP_Ack(task->server_socket, request, &(task->client_addr), task->client_len,task->pool, task->bindings,task->config);
                     break;
                 
                 case 5: //DECLINE
-                    handle_DHCP_Decline(request,bindings);
+                    print_dhcp_message(request);
+                    handle_DHCP_Decline(request,task->bindings);
                     break;
            
                 case 7: //RELEASE
-                    handle_DHCP_Release(request, bindings);
+                    print_dhcp_message(request);
+                    handle_DHCP_Release(request, task->bindings);
                     break;
                 case 8: //INFORM_REPLY
-                    handle_DHCP_Inform_Reply(server_socket, request, &client_addr, client_len,pool, bindings,config);
+                    print_dhcp_message(request);
+                    handle_DHCP_Inform_Reply(task->server_socket, request, &(task->client_addr),task->client_len,task->pool,task-> bindings,task->config);
                     break;
                 case 6: //DHCP_NACK
-                    send_DHCP_NACK(server_socket, request, &client_addr, client_len,pool, bindings,config);
+                //6 vine de la server
+                    send_DHCP_NACK(task->server_socket, request, &(task->client_addr), task->client_len,task->pool, task->bindings,task->config);
                     break;
                 default:
                     printf("Unknown DHCP message type: %u\n", message_type);
@@ -669,17 +772,6 @@ void init_logfile()
     fflush(stdout);
 }
 
-void execute_bashScript_config()
-{
-    int ret=system("sudo bash /home/andreea/PSO/Proiect/Server-DHCP-AndreeasBranch");
-    if(ret==-1)
-    {
-        perror("Eroare la executarea scriptului\n");
-    }
-    else{
-        printf("Scriptul a fost executat cu succes.\n");
-    }
-}
 
 int main()
 {
@@ -689,9 +781,6 @@ int main()
     init_binding_list(&bindings);
 
     init_logfile();
-
-    //configurare fisier de config
-    execute_bashScript_config();
 
     //citire fisier de config
     if(read_config_dhcp(CONFIG_FILENAME, &server_config, &bindings, &pool_indexes)!=0)
@@ -706,10 +795,46 @@ int main()
     printf("Server is open and it listens on %d port.\n", BOOTPS);
     fflush(stdout);
 
+    pthread_t th[THREAD_NUM];
+    pthread_mutex_init(&mutexQueue, NULL);
+    pthread_cond_init(&condQueue, NULL);
+    pthread_mutex_init(&pool_mutex,NULL);
+    pthread_mutex_init(&bindings_mutex,NULL);
+    int i;
+    for (i = 0; i < THREAD_NUM; i++) {
+        if (pthread_create(&th[i], NULL, &startThread, NULL) != 0) {
+            perror("Failed to create the thread");
+        }
+    }
+    
     while (1)
     {
-        handle_client(server_socket, &pool_indexes, &bindings, &server_config);
+        struct sockaddr_in client_addr;
+        socklen_t client_len = sizeof(client_addr);
+        char buffer[BUFFER_SIZE];
+
+        ssize_t recv_bytes = recvfrom(server_socket, buffer, BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
+        if (recv_bytes < 0)
+         {
+            perror("Error: Couldn't receive data from client");
+            return -1;
+        }
+        ClientTask T;
+        memset(&T, 0, sizeof(ClientTask));
+
+        memcpy(T.buffer,buffer,recv_bytes);
+        T.bindings=&bindings;
+        T.client_len=client_len;
+        T.config=&server_config;
+        T.pool=&pool_indexes;
+        T.recv_bytes=recv_bytes;
+        T.server_socket=server_socket;
+        T.client_addr=client_addr;
+        submitTask(T);
+
     }
+    pthread_mutex_destroy(&mutexQueue);
+    pthread_cond_destroy(&condQueue);
 
     close(server_socket);
     return 0;
