@@ -17,7 +17,7 @@
 #include "config_reader.h"
 #include "options.h"
 
-#define THREAD_NUM 4
+#define THREAD_NUM 1
 #define DHCP_OPTION_MSG_TYPE 53
 #define DHCP_OPTIONS_MAX_LEN 276
 #define CONFIG_FILENAME "dhcp_config_file.txt"
@@ -293,7 +293,7 @@ int is_ip_available(ip_pool_ind *pool, binding_list *bindings, uint32_t ip_to_ch
 
 uint32_t offer_ip_available(ip_pool_ind *pool, binding_list *bindings) {
     uint32_t offered_ip = 0;
-    pthread_mutex_lock(&pool_mutex); // protecție în caz de acces concurent
+    pthread_mutex_lock(&pool_mutex); 
     for (uint32_t ip = pool->ip_current + 1; ip <= pool->ip_last; ip++) {
         if (is_ip_available(pool, bindings, ip)) {
             offered_ip = ip;
@@ -365,7 +365,7 @@ void send_DHCP_Offer(int server_socket, const dhcp_message *request,  struct soc
         perror("Error allocating memory for new binding");
         return;
     }
-
+    
     new_binding->address = offered_ip;
     new_binding->binding_time = time(NULL);
     new_binding->lease_time = new_binding->binding_time + config->max_lease_time;

@@ -12,7 +12,7 @@ max-lease-time 7200;
 
 # Subnet si setari IP
 subnet 192.168.1.0 netmask 255.255.255.0 {
-    range 192.168.1.10 192.168.1.20;
+    range 192.168.1.15 192.168.1.20;
     option routers 192.168.1.1;
     option subnet-mask 255.255.255.0 ;
     option broadcast-address 192.168.1.255;

@@ -7,466 +7,9 @@
 Default lease time: 600 sec
 Max lease time: 7200 sec
 Subnet: 192.168.1.0, Netmask: 255.255.255.0
-Intervalul IP: 192.168.1.10 - 192.168.1.20;
+Intervalul IP: 192.168.1.15 - 192.168.1.20;
 Server configuration loaded successfully
 Server is open and it listens on 67 port.
-
-
-
-
-
-========== DHCP Message ==========
-DHCP DISCOVER received from client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 1
-Operation (op): 1 (BOOTREQUEST)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 81
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 0.0.0.0
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x01
-  Option[7]: 0x0C
-  Option[8]: 0x10
-  Option[9]: 0x64
-  Option[10]: 0x61
-  Option[11]: 0x76
-  Option[12]: 0x69
-  Option[13]: 0x64
-  Option[14]: 0x2D
-  Option[15]: 0x56
-  Option[16]: 0x69
-  Option[17]: 0x72
-  Option[18]: 0x74
-  Option[19]: 0x75
-  Option[20]: 0x61
-  Option[21]: 0x6C
-  Option[22]: 0x42
-  Option[23]: 0x6F
-  Option[24]: 0x78
-  Option[25]: 0x37
-  Option[26]: 0x0D
-  Option[27]: 0x01
-  Option[28]: 0x1C
-  Option[29]: 0x02
-  Option[30]: 0x03
-  Option[31]: 0x0F
-  Option[32]: 0x06
-  Option[33]: 0x77
-  Option[34]: 0x0C
-  Option[35]: 0x2C
-  Option[36]: 0x2F
-  Option[37]: 0x1A
-  Option[38]: 0x79
-  Option[39]: 0x2A
-==================================
-+++++Lista binding-urilor+++++.
-Element 0:
-  Address: 192.168.1.11
-  CID Identifier Length: 6
-  CID Identifier: 08002742CD45
-  Binding Time: Sat Jan  4 00:32:44 2025
-  Lease Time: Sat Jan  4 02:32:44 2025
-  Status: 1
-  Is Static: No
-----------------------
-
-
-
-
-
-========== DHCP Message ==========
-DHCP DISCOVER received from client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 1
-Operation (op): 1 (BOOTREQUEST)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 81
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 0.0.0.0
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x01
-  Option[7]: 0x0C
-  Option[8]: 0x10
-  Option[9]: 0x64
-  Option[10]: 0x61
-  Option[11]: 0x76
-  Option[12]: 0x69
-  Option[13]: 0x64
-  Option[14]: 0x2D
-  Option[15]: 0x56
-  Option[16]: 0x69
-  Option[17]: 0x72
-  Option[18]: 0x74
-  Option[19]: 0x75
-  Option[20]: 0x61
-  Option[21]: 0x6C
-  Option[22]: 0x42
-  Option[23]: 0x6F
-  Option[24]: 0x78
-  Option[25]: 0x37
-  Option[26]: 0x0D
-  Option[27]: 0x01
-  Option[28]: 0x1C
-  Option[29]: 0x02
-  Option[30]: 0x03
-  Option[31]: 0x0F
-  Option[32]: 0x06
-  Option[33]: 0x77
-  Option[34]: 0x0C
-  Option[35]: 0x2C
-  Option[36]: 0x2F
-  Option[37]: 0x1A
-  Option[38]: 0x79
-  Option[39]: 0x2A
-==================================
-
-
-
-
-
-========== DHCP Message ==========
-DHCP REQUEST received from client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 3
-Operation (op): 1 (BOOTREQUEST)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 81
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 0.0.0.0
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x03
-  Option[7]: 0x32
-  Option[8]: 0x04
-  Option[9]: 0xC0
-  Option[10]: 0xA8
-  Option[11]: 0x01
-  Option[12]: 0x0B
-  Option[13]: 0x0C
-  Option[14]: 0x10
-  Option[15]: 0x64
-  Option[16]: 0x61
-  Option[17]: 0x76
-  Option[18]: 0x69
-  Option[19]: 0x64
-  Option[20]: 0x2D
-  Option[21]: 0x56
-  Option[22]: 0x69
-  Option[23]: 0x72
-  Option[24]: 0x74
-  Option[25]: 0x75
-  Option[26]: 0x61
-  Option[27]: 0x6C
-  Option[28]: 0x42
-  Option[29]: 0x6F
-  Option[30]: 0x78
-  Option[31]: 0x37
-  Option[32]: 0x0D
-  Option[33]: 0x01
-  Option[34]: 0x1C
-  Option[35]: 0x02
-  Option[36]: 0x03
-  Option[37]: 0x0F
-  Option[38]: 0x06
-  Option[39]: 0x77
-  Option[40]: 0x0C
-  Option[41]: 0x2C
-  Option[42]: 0x2F
-  Option[43]: 0x1A
-  Option[44]: 0x79
-  Option[45]: 0x2A
-==================================
-Checking binding: is_static=0, cident_len=6, status=1
-Matching binding found: IP=11.1.168.192
-Binding found: IP 11.1.168.192
-DHCP ACK sent to client: IP address 192.168.1.11
-
-
-
-
-
-========== DHCP Message ==========
-DHCP ACK sent to client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 5
-Operation (op): 2 (BOOTREPLY)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 0
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.11
-Server IP address (siaddr): 192.168.1.1
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x05
-  Option[7]: 0x33
-  Option[8]: 0x04
-  Option[9]: 0x00
-  Option[10]: 0x00
-  Option[11]: 0x1C
-  Option[12]: 0x20
-  Option[13]: 0x01
-  Option[14]: 0x04
-==================================
-
-
-
-
-
-========== DHCP Message ==========
-DHCP REQUEST received from client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 3
-Operation (op): 1 (BOOTREQUEST)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 81
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 0.0.0.0
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x03
-  Option[7]: 0x32
-  Option[8]: 0x04
-  Option[9]: 0xC0
-  Option[10]: 0xA8
-  Option[11]: 0x01
-  Option[12]: 0x0B
-  Option[13]: 0x0C
-  Option[14]: 0x10
-  Option[15]: 0x64
-  Option[16]: 0x61
-  Option[17]: 0x76
-  Option[18]: 0x69
-  Option[19]: 0x64
-  Option[20]: 0x2D
-  Option[21]: 0x56
-  Option[22]: 0x69
-  Option[23]: 0x72
-  Option[24]: 0x74
-  Option[25]: 0x75
-  Option[26]: 0x61
-  Option[27]: 0x6C
-  Option[28]: 0x42
-  Option[29]: 0x6F
-  Option[30]: 0x78
-  Option[31]: 0x37
-  Option[32]: 0x0D
-  Option[33]: 0x01
-  Option[34]: 0x1C
-  Option[35]: 0x02
-  Option[36]: 0x03
-  Option[37]: 0x0F
-  Option[38]: 0x06
-  Option[39]: 0x77
-  Option[40]: 0x0C
-  Option[41]: 0x2C
-  Option[42]: 0x2F
-  Option[43]: 0x1A
-  Option[44]: 0x79
-  Option[45]: 0x2A
-==================================
-Checking binding: is_static=0, cident_len=6, status=1
-Matching binding found: IP=12.1.168.192
-Binding found: IP 12.1.168.192
-DHCP ACK sent to client: IP address 192.168.1.12
-
-
-
-
-
-========== DHCP Message ==========
-DHCP ACK sent to client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 5
-Operation (op): 2 (BOOTREPLY)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 0
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.12
-Server IP address (siaddr): 192.168.1.1
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x05
-  Option[7]: 0x33
-  Option[8]: 0x04
-  Option[9]: 0x00
-  Option[10]: 0x00
-  Option[11]: 0x1C
-  Option[12]: 0x20
-  Option[13]: 0x01
-  Option[14]: 0x04
-==================================
-+++++Lista binding-urilor+++++.
-Element 0:
-  Address: 192.168.1.12
-  CID Identifier Length: 6
-  CID Identifier: 08002742CD45
-  Binding Time: Sat Jan  4 00:32:44 2025
-  Lease Time: Sat Jan  4 02:32:44 2025
-  Status: 1
-  Is Static: No
-----------------------
-Element 1:
-  Address: 192.168.1.11
-  CID Identifier Length: 6
-  CID Identifier: 08002742CD45
-  Binding Time: Sat Jan  4 00:32:44 2025
-  Lease Time: Sat Jan  4 02:32:44 2025
-  Status: 1
-  Is Static: No
-----------------------
-
-
-
-
-
-========== DHCP Message ==========
-DHCP OFFER sent to client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 2
-Operation (op): 2 (BOOTREPLY)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 0
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.12
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x02
-  Option[7]: 0x33
-  Option[8]: 0x04
-  Option[9]: 0x00
-  Option[10]: 0x00
-  Option[11]: 0x1C
-  Option[12]: 0x20
-==================================
-
-
-
-
-
-========== DHCP Message ==========
-DHCP OFFER sent to client with MAC: 08:00:27:42:cd:45
-DHCP Message type: 2
-Operation (op): 2 (BOOTREPLY)
-Hardware type (htype): 1
-MAC address length (hlen): 6
-Hops: 0
-Transaction ID (xid): 0xBB7CFF2F
-Seconds elapsed (secs): 0
-Flags: 0x0000
-Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.11
-Server IP address (siaddr): 0.0.0.0
-Gateway IP address (giaddr): 0.0.0.0
-Client MAC address (chaddr): 08:00:27:42:CD:45
-Server name (sname): 
-Boot file name (file): 
-Options:
-  Option[0]: 0x63
-  Option[1]: 0x82
-  Option[2]: 0x53
-  Option[3]: 0x63
-  Option[4]: 0x35
-  Option[5]: 0x01
-  Option[6]: 0x02
-  Option[7]: 0x33
-  Option[8]: 0x04
-  Option[9]: 0x00
-  Option[10]: 0x00
-  Option[11]: 0x1C
-  Option[12]: 0x20
-==================================
 
 
 
@@ -479,8 +22,8 @@ Operation (op): 1 (BOOTREQUEST)
 Hardware type (htype): 1
 MAC address length (hlen): 6
 Hops: 0
-Transaction ID (xid): 0x38E6BB77
-Seconds elapsed (secs): 23
+Transaction ID (xid): 0xB01E6A00
+Seconds elapsed (secs): 0
 Flags: 0x0000
 Client IP address (ciaddr): 0.0.0.0
 Your IP address (yiaddr): 0.0.0.0
@@ -497,65 +40,53 @@ Options:
   Option[4]: 0x35
   Option[5]: 0x01
   Option[6]: 0x01
-  Option[7]: 0x0C
-  Option[8]: 0x10
-  Option[9]: 0x64
-  Option[10]: 0x61
-  Option[11]: 0x76
-  Option[12]: 0x69
-  Option[13]: 0x64
-  Option[14]: 0x2D
-  Option[15]: 0x56
-  Option[16]: 0x69
-  Option[17]: 0x72
-  Option[18]: 0x74
-  Option[19]: 0x75
-  Option[20]: 0x61
-  Option[21]: 0x6C
-  Option[22]: 0x42
-  Option[23]: 0x6F
-  Option[24]: 0x78
-  Option[25]: 0x37
-  Option[26]: 0x0D
-  Option[27]: 0x01
-  Option[28]: 0x1C
-  Option[29]: 0x02
-  Option[30]: 0x03
-  Option[31]: 0x0F
-  Option[32]: 0x06
-  Option[33]: 0x77
-  Option[34]: 0x0C
-  Option[35]: 0x2C
-  Option[36]: 0x2F
-  Option[37]: 0x1A
-  Option[38]: 0x79
-  Option[39]: 0x2A
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x10
+  Option[13]: 0x0C
+  Option[14]: 0x10
+  Option[15]: 0x64
+  Option[16]: 0x61
+  Option[17]: 0x76
+  Option[18]: 0x69
+  Option[19]: 0x64
+  Option[20]: 0x2D
+  Option[21]: 0x56
+  Option[22]: 0x69
+  Option[23]: 0x72
+  Option[24]: 0x74
+  Option[25]: 0x75
+  Option[26]: 0x61
+  Option[27]: 0x6C
+  Option[28]: 0x42
+  Option[29]: 0x6F
+  Option[30]: 0x78
+  Option[31]: 0x37
+  Option[32]: 0x0D
+  Option[33]: 0x01
+  Option[34]: 0x1C
+  Option[35]: 0x02
+  Option[36]: 0x03
+  Option[37]: 0x0F
+  Option[38]: 0x06
+  Option[39]: 0x77
+  Option[40]: 0x0C
+  Option[41]: 0x2C
+  Option[42]: 0x2F
+  Option[43]: 0x1A
+  Option[44]: 0x79
+  Option[45]: 0x2A
 ==================================
 +++++Lista binding-urilor+++++.
 Element 0:
-  Address: 192.168.1.13
+  Address: 192.168.1.16
   CID Identifier Length: 6
   CID Identifier: 080027579D2F
-  Binding Time: Sat Jan  4 00:32:54 2025
-  Lease Time: Sat Jan  4 02:32:54 2025
-  Status: 1
-  Is Static: No
-----------------------
-Element 1:
-  Address: 192.168.1.12
-  CID Identifier Length: 6
-  CID Identifier: 08002742CD45
-  Binding Time: Sat Jan  4 00:32:44 2025
-  Lease Time: Sat Jan  4 02:32:44 2025
-  Status: 1
-  Is Static: No
-----------------------
-Element 2:
-  Address: 192.168.1.11
-  CID Identifier Length: 6
-  CID Identifier: 08002742CD45
-  Binding Time: Sat Jan  4 00:32:44 2025
-  Lease Time: Sat Jan  4 02:32:44 2025
+  Binding Time: Wed Jan  8 10:47:31 2025
+  Lease Time: Wed Jan  8 12:47:31 2025
   Status: 1
   Is Static: No
 ----------------------
@@ -571,11 +102,11 @@ Operation (op): 2 (BOOTREPLY)
 Hardware type (htype): 1
 MAC address length (hlen): 6
 Hops: 0
-Transaction ID (xid): 0x38E6BB77
+Transaction ID (xid): 0xB01E6A00
 Seconds elapsed (secs): 0
 Flags: 0x0000
 Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.13
+Your IP address (yiaddr): 192.168.1.16
 Server IP address (siaddr): 0.0.0.0
 Gateway IP address (giaddr): 0.0.0.0
 Client MAC address (chaddr): 08:00:27:57:9D:2F
@@ -608,8 +139,8 @@ Operation (op): 1 (BOOTREQUEST)
 Hardware type (htype): 1
 MAC address length (hlen): 6
 Hops: 0
-Transaction ID (xid): 0x38E6BB77
-Seconds elapsed (secs): 23
+Transaction ID (xid): 0xB01E6A00
+Seconds elapsed (secs): 0
 Flags: 0x0000
 Client IP address (ciaddr): 0.0.0.0
 Your IP address (yiaddr): 0.0.0.0
@@ -631,7 +162,7 @@ Options:
   Option[9]: 0xC0
   Option[10]: 0xA8
   Option[11]: 0x01
-  Option[12]: 0x0D
+  Option[12]: 0x10
   Option[13]: 0x0C
   Option[14]: 0x10
   Option[15]: 0x64
@@ -667,9 +198,9 @@ Options:
   Option[45]: 0x2A
 ==================================
 Checking binding: is_static=0, cident_len=6, status=1
-Matching binding found: IP=13.1.168.192
-Binding found: IP 13.1.168.192
-DHCP ACK sent to client: IP address 192.168.1.13
+Matching binding found: IP=16.1.168.192
+Binding found: IP 16.1.168.192
+DHCP ACK sent to client: IP address 192.168.1.16
 
 
 
@@ -682,14 +213,501 @@ Operation (op): 2 (BOOTREPLY)
 Hardware type (htype): 1
 MAC address length (hlen): 6
 Hops: 0
-Transaction ID (xid): 0x38E6BB77
+Transaction ID (xid): 0xB01E6A00
 Seconds elapsed (secs): 0
 Flags: 0x0000
 Client IP address (ciaddr): 0.0.0.0
-Your IP address (yiaddr): 192.168.1.13
+Your IP address (yiaddr): 192.168.1.16
 Server IP address (siaddr): 192.168.1.1
 Gateway IP address (giaddr): 0.0.0.0
 Client MAC address (chaddr): 08:00:27:57:9D:2F
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x05
+  Option[7]: 0x33
+  Option[8]: 0x04
+  Option[9]: 0x00
+  Option[10]: 0x00
+  Option[11]: 0x1C
+  Option[12]: 0x20
+  Option[13]: 0x01
+  Option[14]: 0x04
+==================================
+
+
+
+
+
+========== DHCP Message ==========
+DHCP DISCOVER received from client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 1
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x19
+  Option[13]: 0x0C
+  Option[14]: 0x10
+  Option[15]: 0x64
+  Option[16]: 0x61
+  Option[17]: 0x76
+  Option[18]: 0x69
+  Option[19]: 0x64
+  Option[20]: 0x2D
+  Option[21]: 0x56
+  Option[22]: 0x69
+  Option[23]: 0x72
+  Option[24]: 0x74
+  Option[25]: 0x75
+  Option[26]: 0x61
+  Option[27]: 0x6C
+  Option[28]: 0x42
+  Option[29]: 0x6F
+  Option[30]: 0x78
+  Option[31]: 0x37
+  Option[32]: 0x0D
+  Option[33]: 0x01
+  Option[34]: 0x1C
+  Option[35]: 0x02
+  Option[36]: 0x03
+  Option[37]: 0x0F
+  Option[38]: 0x06
+  Option[39]: 0x77
+  Option[40]: 0x0C
+  Option[41]: 0x2C
+  Option[42]: 0x2F
+  Option[43]: 0x1A
+  Option[44]: 0x79
+  Option[45]: 0x2A
+==================================
++++++Lista binding-urilor+++++.
+Element 0:
+  Address: 192.168.1.17
+  CID Identifier Length: 6
+  CID Identifier: 08002742CD45
+  Binding Time: Wed Jan  8 10:49:23 2025
+  Lease Time: Wed Jan  8 12:49:23 2025
+  Status: 1
+  Is Static: No
+----------------------
+Element 1:
+  Address: 192.168.1.16
+  CID Identifier Length: 6
+  CID Identifier: 080027579D2F
+  Binding Time: Wed Jan  8 10:47:31 2025
+  Lease Time: Wed Jan  8 12:47:31 2025
+  Status: 1
+  Is Static: No
+----------------------
+
+
+
+
+
+========== DHCP Message ==========
+DHCP OFFER sent to client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 2
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 192.168.1.17
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x02
+  Option[7]: 0x33
+  Option[8]: 0x04
+  Option[9]: 0x00
+  Option[10]: 0x00
+  Option[11]: 0x1C
+  Option[12]: 0x20
+==================================
+
+
+
+
+
+========== DHCP Message ==========
+DHCP DISCOVER received from client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 1
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x01
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x19
+  Option[13]: 0x0C
+  Option[14]: 0x10
+  Option[15]: 0x64
+  Option[16]: 0x61
+  Option[17]: 0x76
+  Option[18]: 0x69
+  Option[19]: 0x64
+  Option[20]: 0x2D
+  Option[21]: 0x56
+  Option[22]: 0x69
+  Option[23]: 0x72
+  Option[24]: 0x74
+  Option[25]: 0x75
+  Option[26]: 0x61
+  Option[27]: 0x6C
+  Option[28]: 0x42
+  Option[29]: 0x6F
+  Option[30]: 0x78
+  Option[31]: 0x37
+  Option[32]: 0x0D
+  Option[33]: 0x01
+  Option[34]: 0x1C
+  Option[35]: 0x02
+  Option[36]: 0x03
+  Option[37]: 0x0F
+  Option[38]: 0x06
+  Option[39]: 0x77
+  Option[40]: 0x0C
+  Option[41]: 0x2C
+  Option[42]: 0x2F
+  Option[43]: 0x1A
+  Option[44]: 0x79
+  Option[45]: 0x2A
+==================================
++++++Lista binding-urilor+++++.
+Element 0:
+  Address: 192.168.1.18
+  CID Identifier Length: 6
+  CID Identifier: 08002742CD45
+  Binding Time: Wed Jan  8 10:49:23 2025
+  Lease Time: Wed Jan  8 12:49:23 2025
+  Status: 1
+  Is Static: No
+----------------------
+Element 1:
+  Address: 192.168.1.17
+  CID Identifier Length: 6
+  CID Identifier: 08002742CD45
+  Binding Time: Wed Jan  8 10:49:23 2025
+  Lease Time: Wed Jan  8 12:49:23 2025
+  Status: 1
+  Is Static: No
+----------------------
+Element 2:
+  Address: 192.168.1.16
+  CID Identifier Length: 6
+  CID Identifier: 080027579D2F
+  Binding Time: Wed Jan  8 10:47:31 2025
+  Lease Time: Wed Jan  8 12:47:31 2025
+  Status: 1
+  Is Static: No
+----------------------
+
+
+
+
+
+========== DHCP Message ==========
+DHCP OFFER sent to client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 2
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 192.168.1.18
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x02
+  Option[7]: 0x33
+  Option[8]: 0x04
+  Option[9]: 0x00
+  Option[10]: 0x00
+  Option[11]: 0x1C
+  Option[12]: 0x20
+==================================
+
+
+
+
+
+========== DHCP Message ==========
+DHCP REQUEST received from client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 3
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x03
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x11
+  Option[13]: 0x0C
+  Option[14]: 0x10
+  Option[15]: 0x64
+  Option[16]: 0x61
+  Option[17]: 0x76
+  Option[18]: 0x69
+  Option[19]: 0x64
+  Option[20]: 0x2D
+  Option[21]: 0x56
+  Option[22]: 0x69
+  Option[23]: 0x72
+  Option[24]: 0x74
+  Option[25]: 0x75
+  Option[26]: 0x61
+  Option[27]: 0x6C
+  Option[28]: 0x42
+  Option[29]: 0x6F
+  Option[30]: 0x78
+  Option[31]: 0x37
+  Option[32]: 0x0D
+  Option[33]: 0x01
+  Option[34]: 0x1C
+  Option[35]: 0x02
+  Option[36]: 0x03
+  Option[37]: 0x0F
+  Option[38]: 0x06
+  Option[39]: 0x77
+  Option[40]: 0x0C
+  Option[41]: 0x2C
+  Option[42]: 0x2F
+  Option[43]: 0x1A
+  Option[44]: 0x79
+  Option[45]: 0x2A
+==================================
+Checking binding: is_static=0, cident_len=6, status=1
+Matching binding found: IP=18.1.168.192
+Binding found: IP 18.1.168.192
+DHCP ACK sent to client: IP address 192.168.1.18
+
+
+
+
+
+========== DHCP Message ==========
+DHCP ACK sent to client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 5
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 192.168.1.18
+Server IP address (siaddr): 192.168.1.1
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x05
+  Option[7]: 0x33
+  Option[8]: 0x04
+  Option[9]: 0x00
+  Option[10]: 0x00
+  Option[11]: 0x1C
+  Option[12]: 0x20
+  Option[13]: 0x01
+  Option[14]: 0x04
+==================================
+
+
+
+
+
+========== DHCP Message ==========
+DHCP REQUEST received from client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 3
+Operation (op): 1 (BOOTREQUEST)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 0.0.0.0
+Server IP address (siaddr): 0.0.0.0
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
+Server name (sname): 
+Boot file name (file): 
+Options:
+  Option[0]: 0x63
+  Option[1]: 0x82
+  Option[2]: 0x53
+  Option[3]: 0x63
+  Option[4]: 0x35
+  Option[5]: 0x01
+  Option[6]: 0x03
+  Option[7]: 0x32
+  Option[8]: 0x04
+  Option[9]: 0xC0
+  Option[10]: 0xA8
+  Option[11]: 0x01
+  Option[12]: 0x11
+  Option[13]: 0x0C
+  Option[14]: 0x10
+  Option[15]: 0x64
+  Option[16]: 0x61
+  Option[17]: 0x76
+  Option[18]: 0x69
+  Option[19]: 0x64
+  Option[20]: 0x2D
+  Option[21]: 0x56
+  Option[22]: 0x69
+  Option[23]: 0x72
+  Option[24]: 0x74
+  Option[25]: 0x75
+  Option[26]: 0x61
+  Option[27]: 0x6C
+  Option[28]: 0x42
+  Option[29]: 0x6F
+  Option[30]: 0x78
+  Option[31]: 0x37
+  Option[32]: 0x0D
+  Option[33]: 0x01
+  Option[34]: 0x1C
+  Option[35]: 0x02
+  Option[36]: 0x03
+  Option[37]: 0x0F
+  Option[38]: 0x06
+  Option[39]: 0x77
+  Option[40]: 0x0C
+  Option[41]: 0x2C
+  Option[42]: 0x2F
+  Option[43]: 0x1A
+  Option[44]: 0x79
+  Option[45]: 0x2A
+==================================
+Checking binding: is_static=0, cident_len=6, status=1
+Matching binding found: IP=18.1.168.192
+Binding found: IP 18.1.168.192
+DHCP ACK sent to client: IP address 192.168.1.18
+
+
+
+
+
+========== DHCP Message ==========
+DHCP ACK sent to client with MAC: 08:00:27:42:cd:45
+DHCP Message type: 5
+Operation (op): 2 (BOOTREPLY)
+Hardware type (htype): 1
+MAC address length (hlen): 6
+Hops: 0
+Transaction ID (xid): 0xC0754D4C
+Seconds elapsed (secs): 0
+Flags: 0x0000
+Client IP address (ciaddr): 0.0.0.0
+Your IP address (yiaddr): 192.168.1.18
+Server IP address (siaddr): 192.168.1.1
+Gateway IP address (giaddr): 0.0.0.0
+Client MAC address (chaddr): 08:00:27:42:CD:45
 Server name (sname): 
 Boot file name (file): 
 Options:
